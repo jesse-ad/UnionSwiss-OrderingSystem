@@ -5,7 +5,7 @@ class Distributor < ApplicationRecord
   has_many :skus
   has_many :orders
 
-  validate :name, uniqueness: true
-  validate :currency, uniqueness: true
+  validates :name, uniqueness: true
+  validates :currency, uniqueness: true
 
 end

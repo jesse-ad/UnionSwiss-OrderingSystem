@@ -9,5 +9,5 @@ class User < ApplicationRecord
 
   has_many :orders
 
-  vaidates :role, presence: true
+  validates :role, presence: true
 end

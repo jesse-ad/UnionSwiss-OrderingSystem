@@ -4,7 +4,7 @@ class Sku < ApplicationRecord
 
   has_many :order_items
 
-  validate :price_per_unit, presences: true, numericality: {greater_than: 0}
-  validate :distributor_id, presence: true, uniqueness: true
-  validate :product_id, presence: true, uniqueness: true
+  validates :price_per_unit, presence: true, numericality: {greater_than: 0}
+  validates :distributor_id, presence: true, uniqueness: true
+  validates :product_id, presence: true, uniqueness: true
 end
