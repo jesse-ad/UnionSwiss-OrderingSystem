@@ -6,5 +6,8 @@ class User < ApplicationRecord
 
   # A user can be a distributor and can have many orders
   belongs_to :distributor, optional: true
+
   has_many :orders
+
+  vaidates :role, presence: true
 end
