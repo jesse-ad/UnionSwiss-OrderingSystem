@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root "pages#home"
   get "admin", to: "pages#admin"
   get "distributor", to: "pages#distributor"
+
+  resources :products
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
