@@ -3,4 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  # A user can be a distributor and can have many orders
+  belongs_to :distributor, optional: true
+  has_many :orders
 end
