@@ -1,0 +1,12 @@
+<h1>Distributors</h1>
+
+<%= link_to "New Distributor", new_distributor_path %>
+<% @distributors.each do |distributor|%>
+    <p>
+        <%= distributor.name %>
+        <%= distributor.currency %>
+        <%= link_to "Edit", edit_distributor_path(distributor) %>
+        <%= link_to "Delete", distributor_path(distributor), data: {turbo_method: :delete} %>
+    </p>
+
+<% end %>
