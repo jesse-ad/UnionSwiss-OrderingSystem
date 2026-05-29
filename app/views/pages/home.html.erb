@@ -1,13 +1,17 @@
 <h1>Welcome</h1>
 
 <% if user_signed_in? %>
-    
-<p>Logged in as: <%= current_user.email %></p>
-
-<%= link_to "Products", products_path %>
-<%= link_to "Distributors", distributors_path %>
-<%= link_to "SKUs", skus_path %>
-<%= link_to "Orders", orders_path %>
-
+    <p>Logged in as: <%= current_user.email %></p>
 <% end %>
+
+<% if current_user.admin? %>
+    <%= link_to "Products", products_path %>
+    <%= link_to "Distributors", distributors_path %>
+    <%= link_to "SKUs", skus_path %>
+<% end %>
+
+<% if current_user.distributor? %>
+    <%= link_to "Orders", orders_path %>
+<% end %>
+
 <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete} %>

@@ -10,4 +10,13 @@ class User < ApplicationRecord
   has_many :orders
 
   validates :role, presence: true
+
+  def admin?
+    role == "admin"
+  end
+
+   def distributor?
+    role == "distributor"
+   end
+
 end

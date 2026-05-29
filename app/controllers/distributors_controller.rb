@@ -1,5 +1,7 @@
 class DistributorsController < ApplicationController
 
+  before_action :require_admin
+
   # For displaying distributors
   def index 
     @distributors = Distributor.all
@@ -39,7 +41,6 @@ class DistributorsController < ApplicationController
     end
   end
 
-
   # For deleting a product
   def destroy
     @distributor = Distributor.find(params[:id])
@@ -49,13 +50,19 @@ class DistributorsController < ApplicationController
     redirect_to distributors_path
   end
 
-
-
-
   private
   # Prevent dangerous/unexpected fields from users
   def distributor_params
     params.require(:distributor).permit(:name, :currency)
+  end
+
+
+  private
+  # If a user is not an admin, they cannot access the distributors list
+  def require_admin
+    unless current_user.admin?
+      redirect_to root_path
+    end
   end
 
 end

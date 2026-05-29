@@ -1,5 +1,7 @@
 class SkusController < ApplicationController
 
+  before_action :require_admin
+  
   # For displaying 
   def index 
     @skus = Sku.all
@@ -53,13 +55,18 @@ class SkusController < ApplicationController
     redirect_to skus_path
   end
 
-
-
-
   private
   # Prevent dangerous/unexpected fields from users
   def skus_params
     params.require(:sku).permit(:distributor_id, :product_id, :price_per_unit)
+  end
+
+  private
+  # If a user is not an admin, they cannot access the full skus list
+  def require_admin
+    unless current_user.admin?
+      redirect_to root_path
+    end
   end
 
 end

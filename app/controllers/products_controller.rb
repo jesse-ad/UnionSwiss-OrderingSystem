@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 
+  before_action :require_admin
+
   # For displaying products
   def index 
     @products = Product.all
@@ -52,6 +54,14 @@ class ProductsController < ApplicationController
   # Prevent dangerous/unexpected fields from users
   def product_params
     params.require(:product).permit(:name)
+  end
+
+  private
+  # If a user is not an admin, they cannot access the products list
+  def require_admin
+    unless current_user.admin?
+      redirect_to root_path
+    end
   end
 
 end

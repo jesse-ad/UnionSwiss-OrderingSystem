@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
 
+  before_action :require_distributor
+
   # For displaying 
   def index 
-    @order = Order.all
+    @orders = current_user.distributor.orders
   end
 
   # Shows form for creating new 
@@ -34,6 +36,15 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:required_delivery_date)
   end
+
+   private
+  # If a user is not a distributor, they cannot create orders
+  def require_distributor
+    unless current_user.distributor?
+      redirect_to root_path
+    end
+  end
+
 
 end
 
