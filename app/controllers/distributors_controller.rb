@@ -15,9 +15,14 @@ class DistributorsController < ApplicationController
    # Saves the new product
   def create
     @distributor = Distributor.new(distributor_params)
-
+    
     if @distributor.save # If the product has been saved
-      redirect_to distributors_path # Redirect to the product page
+
+      # Create new distributor with email and password
+      User.create( email: params[:email], password: params[:password], role: "distributor", distributor: @distributor)
+
+      # Redirect to the product page
+      redirect_to distributors_path 
     else
       render :new # create new form
     end
