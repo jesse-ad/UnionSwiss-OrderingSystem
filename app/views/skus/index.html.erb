@@ -1,0 +1,13 @@
+<h1>SKUs</h1>
+
+<%= link_to "New SKU", new_sku_path %>
+<% @skus.each do |sku|%>
+    <p>
+        <%= sku.distributor.name %>
+        <%= sku.product.name %>
+        <%= sku.price_per_unit %>
+        <%= link_to "Edit", edit_sku_path(sku) %>
+        <%= link_to "Delete", sku_path(sku), data: {turbo_method: :delete} %>
+    </p>
+
+<% end %>

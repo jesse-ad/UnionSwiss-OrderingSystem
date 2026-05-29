@@ -6,6 +6,6 @@ class Distributor < ApplicationRecord
   has_many :orders
 
   validates :name, uniqueness: true
-  validates :currency, uniqueness: true
+  validates :currency, presence: true
 
 end
