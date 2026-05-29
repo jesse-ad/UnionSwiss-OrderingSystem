@@ -1,0 +1,14 @@
+<h1>Order <%= @order.order_number %></h1>
+
+<p>
+    Required Delivery Date:
+    <%= @order.required_delivery_date %>
+</p>
+
+<%= link_to "Add Item", new_order_order_item_path(@order) %>
+<h2>Items</h2>
+
+<% @order.order_items.each do |item| %>
+    <%= item.sku.product.name %>
+    <%= item.pallets %>
+<% end %>

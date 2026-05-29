@@ -25,6 +25,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def show 
+    @order = Order.find(params[:id])
+  end
+
   private
   # Prevent dangerous/unexpected fields from users
   def order_params

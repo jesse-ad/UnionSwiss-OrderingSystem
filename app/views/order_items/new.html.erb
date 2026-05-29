@@ -1,0 +1,19 @@
+<h1>Add Item to Order</h1>
+
+<%= form_with model: [@order, @order_item] do |form| %>
+
+    <div>
+        <%= form.label :sku_id, "Product" %>
+        <%= form.select :sku_id, @sku_options %>
+    </div>
+
+    <div>
+        <%= form.label :pallets %>
+        <%= form.number_field :pallets %>
+    </div>
+
+    <div>
+        <%= form.submit "Submit" %>
+    </div>
+
+<% end %>

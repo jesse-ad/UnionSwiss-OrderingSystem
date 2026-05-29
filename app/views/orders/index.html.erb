@@ -1,3 +1,10 @@
 <h1>Orders</h1>
 
 <%= link_to "Create Order", new_order_path %>
+
+<% @order.each do |order| %>
+    <p>
+        <%= order.order_number%>
+        <%= link_to "View", order_path(order) %>
+    </p>
+<% end %>
