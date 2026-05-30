@@ -52,40 +52,35 @@
 <% end %>
 
 <% if current_user.distributor? %>
-<div data-controller="add-item">
 
-    <button data-action="click->add-item#show">
-        Add Item
-    </button>
+  <details>
+    <summary>Add Item</summary>
 
-    <div
-        data-add-item-target="modal" border: 1px; padding: 2px>
+    <%= form_with model: [@order, OrderItem.new] do |form| %>
 
-        <h3>Add Item</h3>
+      <div>
+        <%= form.label :sku_id, "Product" %>
 
-        <%= form_with model: [@order, OrderItem.new] do |form| %>
+        <%= form.collection_select(
+          :sku_id,
+          current_user.distributor.skus,
+          :id,
+          :display_name
+        ) %>
+      </div>
 
-            <%= form.collection_select(
-                :sku_id,
-                current_user.distributor.skus,
-                :id,
-                :display_name
-            ) %>
+      <%= form.hidden_field :pallets, value: 1 %>
 
-            <%= form.hidden_field :pallets, value: 1 %>
+      <div>
+        <%= form.submit "Add Product" %>
+      </div>
 
-            <%= form.submit "Add" %>
+    <% end %>
 
-        <% end %>
+  </details>
 
-        <button data-action="click->add-item#hide">
-            Close
-        </button>
-
-    </div>
-
-</div>
 <% end %>
+
 
 <h3>
     Order Total:
