@@ -26,12 +26,74 @@
 <h2>Items</h2>
 
 <% @order.order_items.each do |item| %>
-    <%= item.sku.product.name %>
-    <%= item.pallets %>
-    <%= item.total_price %>
+    <div>
+        <p>
+            <strong><%= item.sku.product.name %></strong>
+        </p>
+
+        <%= button_to "-", 
+            decrement_order_order_item_path(@order, item),
+            method: :patch %>
+
+        <%= item.pallets %>
+
+        <%= button_to "+", 
+            increment_order_order_item_path(@order, item),
+            method: :patch %>
+        
+        <p>
+            Total:
+            <%= number_with_delimiter(item.total_price) %>
+        </p>
+
+        <%= button_to "Delete",
+            order_order_item_path(@order, item),
+            method: :delete %>
+        <hr>
+
+    </div>
+
+<% end %>
+
+<% if current_user.distributor? %>
+<div data-controller="add-item">
+
+    <button data-action="click->add-item#show">
+        Add Item
+    </button>
+
+    <div
+        data-add-item-target="modal"
+        style="display:none; border:1px solid black; padding:20px;"
+    >
+
+        <h3>Add Item</h3>
+
+        <%= form_with model: [@order, OrderItem.new] do |form| %>
+
+            <%= form.collection_select(
+                :sku_id,
+                current_user.distributor.skus,
+                :id,
+                :display_name
+            ) %>
+
+            <%= form.hidden_field :pallets, value: 1 %>
+
+            <%= form.submit "Add" %>
+
+        <% end %>
+
+        <button data-action="click->add-item#hide">
+            Close
+        </button>
+
+    </div>
+
+</div>
 <% end %>
 
 <h3>
-    Total:
-    <%= @order.total_price %>
+    Order Total:
+    <%= number_with_delimiter(@order.total_price) %>
 </h3>

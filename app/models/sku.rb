@@ -8,3 +8,7 @@ class Sku < ApplicationRecord
   validates :distributor_id, presence: true
   validates :product_id, presence: true
 end
+
+def display_name
+  product.name
+end

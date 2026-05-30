@@ -4,7 +4,7 @@ class OrderItemsController < ApplicationController
     @order = Order.find(params[:order_id])
     @order_item = OrderItem.new
     @skus = current_user.distributor.skus # Only show relevant skus to distributor
-    
+
       @sku_options = @skus.map do |sku|
       [sku.product.name, sku.id]
       end
@@ -20,6 +20,37 @@ class OrderItemsController < ApplicationController
       render :new 
     end
   end
+
+  def destroy 
+    @ordxer_item = OrderItem.find(params[:id])
+    @order = @order_item.order
+
+    @order_item.destroy
+
+    redirect_to order_path(@order)
+  end
+
+  # Increments the number of pallets
+  def increment
+    @order_item = OrderItem.find(params[:id])
+
+    @order_item.update( pallets: @order_item.pallets + 1)
+
+    redirect_to order_path(@order_item.order)
+  end
+
+  # Decrements the number of pallets
+  def decrement
+    @order_item = OrderItem.find(params[:id])
+
+      if @order_item.pallets > 1
+        @order_item.update( pallets: @order_item.pallets - 1)
+      end
+
+      redirect_to order_path(@order_item.order)
+  end
+  
+        
 
   private
   # Prevent dangerous/unexpected fields from users
