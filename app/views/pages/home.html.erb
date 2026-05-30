@@ -5,9 +5,18 @@
 <% end %>
 
 <% if current_user.admin? %>
+    <h2>Admin Dashboard</h2>
+
+    <p>Products: <%= @product_count %></p>
+    <p>Distributors: <%= @distributor_count %></p>
+    <p>SKUs: <%= @sku_count %></p>
+    <p>Orders: <%= @sku_count %></p>
+
     <%= link_to "Products", products_path %>
     <%= link_to "Distributors", distributors_path %>
     <%= link_to "SKUs", skus_path %>
+    <%= link_to "Orders", orders_path %>
+
 <% end %>
 
 <% if current_user.distributor? %>
