@@ -7,8 +7,9 @@ class Sku < ApplicationRecord
   validates :price_per_unit, presence: true, numericality: {greater_than: 0}
   validates :distributor_id, presence: true
   validates :product_id, presence: true
-end
 
 def display_name
   product.name
+end
+
 end

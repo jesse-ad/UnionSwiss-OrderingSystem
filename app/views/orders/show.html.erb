@@ -19,10 +19,6 @@
      <%= @order.status %>
 </p>
 
-<% if current_user.distributor? %>
-    <%= link_to "Add Item", new_order_order_item_path(@order) %>
-<% end %>
-
 <h2>Items</h2>
 
 <% @order.order_items.each do |item| %>
@@ -63,9 +59,7 @@
     </button>
 
     <div
-        data-add-item-target="modal"
-        style="display:none; border:1px solid black; padding:20px;"
-    >
+        data-add-item-target="modal" border: 1px; padding: 2px>
 
         <h3>Add Item</h3>
 

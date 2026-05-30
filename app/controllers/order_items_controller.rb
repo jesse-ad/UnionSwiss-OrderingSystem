@@ -22,7 +22,7 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy 
-    @ordxer_item = OrderItem.find(params[:id])
+    @order_item = OrderItem.find(params[:id])
     @order = @order_item.order
 
     @order_item.destroy
