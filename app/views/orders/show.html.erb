@@ -5,7 +5,24 @@
     <%= @order.required_delivery_date %>
 </p>
 
-<%= link_to "Add Item", new_order_order_item_path(@order) %>
+<% if current_user.admin? %>
+    <%=form_with model: @order do |form| %>
+        <div>
+             <%= form.select :status, ["pending", "processing", "delivered", "cancelled"],
+                {}, { onchange: "this.form.requestSubmit()" } %>
+        </div>
+    
+    <% end %>
+<% end %>
+<p>
+    Status:
+     <%= @order.status %>
+</p>
+
+<% if current_user.distributor? %>
+    <%= link_to "Add Item", new_order_order_item_path(@order) %>
+<% end %>
+
 <h2>Items</h2>
 
 <% @order.order_items.each do |item| %>

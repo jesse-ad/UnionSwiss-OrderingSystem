@@ -2,9 +2,40 @@
 
 <%= link_to "Create Order", new_order_path %>
 
-<% @orders.each do |order| %>
-    <p>
-        <p>Order: <%= order.order_number%></p>
-        <%= link_to "View", order_path(order) %>
-    </p>
+<table>
+    <tr>
+        <th>Number</th>
+        <% if current_user.admin? %>
+            <th>Distributor</th>
+        <% end %>
+        <th>Status</th>
+        <th>Delivery Date</th>
+    </tr>
+
+    <% @orders.each do |order| %>
+    <tr>
+        <td><%= link_to order.order_number, order_path(order) %></td>
+
+           <% if current_user.admin?%>
+                <td><%= order.distributor.name %></td>
+           <% end %>
+
+
+        <td><% if current_user.admin? %>
+                <%=form_with model: order do |form| %>
+                <div>
+                    <%= form.select :status, ["pending", "processing", "delivered", "cancelled"],
+                        {}, { onchange: "this.form.requestSubmit()" } %>
+                </div>
+                <% end %>
+            <% else %>
+                <%= order.status %>
+            <% end %>
+        </td>
+        
+        <td><%= order.required_delivery_date %></td>
+    <tr>
 <% end %>
+
+</table>
+

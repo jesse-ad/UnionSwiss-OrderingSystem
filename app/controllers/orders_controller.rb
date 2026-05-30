@@ -1,13 +1,12 @@
 class OrdersController < ApplicationController
 
-  before_action :require_distributor
-
   # For displaying 
   def index 
     if current_user.admin?
       @orders = Order.all
+    else
+      @orders = current_user.distributor.orders
     end
-    @orders = current_user.distributor.orders
   end
 
   # Shows form for creating new 
@@ -34,10 +33,25 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
+  def edit
+    @order = Order.find(params[:id])
+  end
+
+  # for updating status
+  def update
+    @order = Order.find(params[:id])
+
+    if @order.update(order_params)
+      redirect_to order_path(@order)
+    else
+      render :edit
+    end
+  end
+
   private
   # Prevent dangerous/unexpected fields from users
   def order_params
-    params.require(:order).permit(:required_delivery_date)
+    params.require(:order).permit(:required_delivery_date, :status)
   end
 
    private

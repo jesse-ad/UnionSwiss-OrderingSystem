@@ -5,12 +5,15 @@ class Order < ApplicationRecord
   has_many :order_items
 
   before_validation :generate_order_number, on: :create
+  before_validation :set_default_status, on: :create
 
   validates :order_number, uniqueness: true, presence: true
   validates :required_delivery_date, presence: true
 
   # Custom validation for only future delivery dates
   validate :future_delivery_date
+
+  validates :status, inclusion: {in: %w[pending processing delivered cancelled]}
 
   # Checks that date is in the future
   def future_delivery_date
@@ -26,6 +29,14 @@ class Order < ApplicationRecord
     return if order_number.present?
 
     self.order_number = "ORD#{Order.count + 1}"
+  end
+
+  # Sets default status as pending
+  private
+  def set_default_status
+    return if status.present?
+
+    self.status = "pending"
   end
 
 end
