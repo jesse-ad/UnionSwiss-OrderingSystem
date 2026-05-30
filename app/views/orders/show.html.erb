@@ -8,7 +8,7 @@
 <% if current_user.admin? %>
     <%=form_with model: @order do |form| %>
         <div>
-             <%= form.select :status, ["pending", "processing", "delivered", "cancelled"],
+             <%= form.select :status, ["processing", "delivered", "cancelled"],
                 {}, { onchange: "this.form.requestSubmit()" } %>
         </div>
     
@@ -97,3 +97,11 @@
     Order Total:
     <%= number_with_delimiter(@order.total_price) %>
 </h3>
+
+<% if current_user.distributor? && @order.status == "draft" %>
+
+    <%= button_to "Submit Order",
+        submit_order_path(@order),
+        method: :patch %>
+
+<% end %>

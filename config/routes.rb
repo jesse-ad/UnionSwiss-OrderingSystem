@@ -22,6 +22,13 @@ Rails.application.routes.draw do
       patch :decrement
     end
   end
+
+  resources :orders do
+  member do
+    patch :submit
+    end
+  end
+  
 end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

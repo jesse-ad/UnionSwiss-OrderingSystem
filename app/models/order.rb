@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   # Custom validation for only future delivery dates
   validate :future_delivery_date
 
-  validates :status, inclusion: {in: %w[pending processing delivered cancelled]}
+  validates :status, inclusion: {in: %w[draft pending processing delivered cancelled]}
 
   # Checks that date is in the future
   def future_delivery_date
@@ -40,7 +40,7 @@ class Order < ApplicationRecord
   def set_default_status
     return if status.present?
 
-    self.status = "pending"
+    self.status = "draft"
   end
 
  

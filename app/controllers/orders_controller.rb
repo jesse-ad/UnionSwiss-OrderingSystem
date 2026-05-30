@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   before_action :require_distributor, only: [:new, :create]
-  
+
   # For displaying 
   def index 
     if current_user.admin?
@@ -50,13 +50,19 @@ class OrdersController < ApplicationController
     end
   end
 
+  def submit 
+    @order = Order.find(params[:id])
+    @order.update(status: "pending")
+
+    redirect_to order_path(@order)
+  end
+
   private
   # Prevent dangerous/unexpected fields from users
   def order_params
     params.require(:order).permit(:required_delivery_date, :status)
   end
 
-   private
   # If a user is not a distributor, they cannot create orders
   def require_distributor
     unless current_user.distributor?
