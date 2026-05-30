@@ -4,6 +4,9 @@ class OrdersController < ApplicationController
 
   # For displaying 
   def index 
+    if current_user.admin?
+      @orders = Order.all
+    end
     @orders = current_user.distributor.orders
   end
 
