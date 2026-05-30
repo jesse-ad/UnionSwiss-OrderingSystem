@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
 
+  before_action :require_distributor, only: [:new, :create]
+  
   # For displaying 
   def index 
     if current_user.admin?

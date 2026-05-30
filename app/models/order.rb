@@ -22,6 +22,11 @@ class Order < ApplicationRecord
     end
   end
 
+   # Calculates total price for order
+  def total_price
+    order_items.sum(&:total_price)
+  end
+
   # Generates unique order number for every order
   # ChatGPT
   private
@@ -32,11 +37,12 @@ class Order < ApplicationRecord
   end
 
   # Sets default status as pending
-  private
   def set_default_status
     return if status.present?
 
     self.status = "pending"
   end
+
+ 
 
 end

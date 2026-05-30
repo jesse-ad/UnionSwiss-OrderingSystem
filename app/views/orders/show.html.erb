@@ -28,4 +28,10 @@
 <% @order.order_items.each do |item| %>
     <%= item.sku.product.name %>
     <%= item.pallets %>
+    <%= item.total_price %>
 <% end %>
+
+<h3>
+    Total:
+    <%= @order.total_price %>
+</h3>
