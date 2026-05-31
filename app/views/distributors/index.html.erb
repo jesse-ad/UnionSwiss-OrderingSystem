@@ -55,8 +55,8 @@
         <td class="text-end">
 
           <%= link_to "Edit",
-              "/distributors/#{distributor.id}",
-              class: "btn btn-sm btn-outline-secondary" %>
+            edit_distributor_path(distributor),
+            class: "btn btn-sm btn-outline-secondary" %>
 
          <%= button_to "Delete",
             distributor_path(distributor),
