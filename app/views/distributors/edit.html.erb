@@ -1,18 +1,1 @@
-<h1>Edit Distributor</h1>
-
-<%= form_with model: @distributor,
-              url: distributor_path(@distributor),
-              local: true do |form| %>
-
-    <div>
-        <%= form.label :name %>
-        <%= form.text_field :name %>
-        <%= form.label :currency %>
-        <%= form.text_field :currency %>
-    </div>
-
-    <div>
-        <%= form.submit "Update Distributor" %>
-    </div>
-
-<% end %>
+<%= render "form" %>

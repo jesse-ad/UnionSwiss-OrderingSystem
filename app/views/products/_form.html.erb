@@ -1,0 +1,30 @@
+
+<div class="col-md-8">
+
+  <div class="page-card">
+
+    <h2 class="mb-4">
+      Product Details
+    </h2>
+
+    <%= form_with model: @product do |form| %>
+
+      <div class="mb-4">
+
+        <%= form.label :name,
+            class: "form-label" %>
+
+        <%= form.text_field :name,
+            class: "form-control" %>
+
+      </div>
+
+      <%= form.submit "Save Product",
+          class: "btn primary-btn" %>
+
+    <% end %>
+
+  </div>
+
+</div>
+

@@ -1,12 +1,78 @@
-<h1>Distributors</h1>
+<div class="container mt-5">
 
-<%= link_to "New Distributor", new_distributor_path %>
-<% @distributors.each do |distributor|%>
-    <p>
-        <%= distributor.name %>
-        <%= distributor.currency %>
-        <%= link_to "Edit", edit_distributor_path(distributor) %>
-        <%= link_to "Delete", distributor_path(distributor), data: {turbo_method: :delete} %>
+  <div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+  <div>
+
+    <h2 class="page-title">
+      Distributors
+    </h2>
+
+    <p class="page-subtitle">
+      Manage distributors and accounts
     </p>
 
-<% end %>
+  </div>
+
+  <%= link_to "New Distributor",
+      new_distributor_path,
+      class: "btn primary-btn" %>
+
+</div>
+
+<table class="table table-hover align-middle">
+
+  <thead>
+
+    <tr>
+
+      <th>Name</th>
+      <th>Currency</th>
+      <th class="text-end">Actions</th>
+
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    <% @distributors.each do |distributor| %>
+
+      <tr>
+
+        <td>
+          <strong>
+            <%= distributor.name %>
+          </strong>
+        </td>
+
+        <td>
+          <%= distributor.currency %>
+        </td>
+
+        <td class="text-end">
+
+          <%= link_to "Edit",
+              edit_distributor_path(distributor),
+              class: "btn btn-sm btn-outline-secondary" %>
+
+          <%= link_to "Delete",
+              distributor_path(distributor),
+              data: { turbo_method: :delete },
+              class: "btn btn-sm btn-outline-danger" %>
+
+        </td>
+
+      </tr>
+
+    <% end %>
+
+  </tbody>
+
+</table>
+
+  </div>
+
+</div>
