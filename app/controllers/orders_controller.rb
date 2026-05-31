@@ -24,8 +24,8 @@ class OrdersController < ApplicationController
     @order.user = current_user
     @order.distributor = current_user.distributor
 
-    if @order.save # If the    has been saved
-      redirect_to @order # Redirect to the  
+    if @order.save 
+      redirect_to order_path(@order)
     else
       render :new # create new form
     end
@@ -43,8 +43,9 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
 
+    
     if @order.update(order_params)
-      redirect_to order_path(@order)
+      redirect_to orders_path
     else
       render :edit
     end

@@ -1,96 +1,235 @@
-<h1>Order <%= @order.order_number %></h1>
+<div class="container mt-5">
 
-<p>
-    Required Delivery Date:
-    <%= @order.required_delivery_date %>
-</p>
+  <div class="card border-0 shadow-sm">
 
-<% if current_user.admin? %>
-    <%=form_with model: @order do |form| %>
-        <div>
-             <%= form.select :status, ["processing", "delivered", "cancelled"],
-                {}, { onchange: "this.form.requestSubmit()" } %>
-        </div>
-    
+
+<div class="card-body">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>
+      Order <%= @order.order_number %>
+    </h2>
+
+    <% if current_user.distributor? && @order.status == "draft" %>
+
+      <%= link_to "Add Item",
+          new_order_order_item_path(@order),
+          class: "btn text-white",
+          style: "background-color:#FF991C;" %>
+
     <% end %>
-<% end %>
-<p>
-    Status:
-     <%= @order.status %>
-</p>
 
-<h2>Items</h2>
+  </div>
 
-<% @order.order_items.each do |item| %>
-    <div>
+  <div class="row mb-4">
+
+    <div class="col-md-4">
+
+      <strong>Status</strong>
+
+      <% if current_user.admin? %>
+
+        <%= form_with model: @order do |form| %>
+
+          <%= form.select :status,
+              ["pending", "processing", "delivered", "cancelled"],
+              {},
+              {
+                class: "form-select status-select",
+                onchange: "this.form.requestSubmit()"
+              } %>
+
+        <% end %>
+
+      <% else %>
+
         <p>
-            <strong><%= item.sku.product.name %></strong>
+          <%= @order.status&.capitalize || "Draft" %>
         </p>
 
-        <%= button_to "-", 
-            decrement_order_order_item_path(@order, item),
-            method: :patch %>
-
-        <%= item.pallets %>
-
-        <%= button_to "+", 
-            increment_order_order_item_path(@order, item),
-            method: :patch %>
-        
-        <p>
-            Total:
-            <%= number_with_delimiter(item.total_price) %>
-        </p>
-
-        <%= button_to "Delete",
-            order_order_item_path(@order, item),
-            method: :delete %>
-        <hr>
+      <% end %>
 
     </div>
 
-<% end %>
+    <div class="col-md-4">
 
-<% if current_user.distributor? %>
+      <strong>Distributor</strong>
 
-  <details>
-    <summary>Add Item</summary>
+      <p>
+        <%= @order.distributor.name %>
+      </p>
 
-    <%= form_with model: [@order, OrderItem.new] do |form| %>
+    </div>
 
-      <div>
-        <%= form.label :sku_id, "Product" %>
+    <div class="col-md-4">
 
-        <%= form.collection_select(
-          :sku_id,
-          current_user.distributor.skus,
-          :id,
-          :display_name
-        ) %>
-      </div>
+      <strong>Delivery Date</strong>
 
-      <%= form.hidden_field :pallets, value: 1 %>
+      <p>
+        <%= @order.required_delivery_date %>
+      </p>
 
-      <div>
-        <%= form.submit "Add Product" %>
-      </div>
+    </div>
 
-    <% end %>
+  </div>
 
-  </details>
+  <h4 class="mb-3">
+    Items
+  </h4>
 
-<% end %>
+  <table class="table align-middle">
+
+    <thead>
+
+      <tr>
+
+        <th>Product</th>
+        <th>Pallets</th>
+        <th>Units</th>
+        <th>Total cost</th>
+
+        <% if current_user.distributor? %>
+          <th>Actions</th>
+        <% end %>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <% @order.order_items.each do |item| %>
+
+        <tr>
+
+          <td>
+            <%= item.sku.product.name %>
+          </td>
+
+          <td>
+
+            <% if current_user.distributor? && @order.status == "draft" %>
+
+              <div class="d-flex align-items-center gap-2">
+
+                <%= button_to "-",
+                    decrement_order_order_item_path(@order, item),
+                    method: :patch,
+                    class: "btn btn-sm btn-outline-secondary" %>
+
+                <span>
+                  <%= item.pallets %>
+                </span>
+
+                <%= button_to "+",
+                    increment_order_order_item_path(@order, item),
+                    method: :patch,
+                    class: "btn btn-sm btn-outline-secondary" %>
+
+              </div>
+
+            <% else %>
+
+              <%= item.pallets %>
+
+            <% end %>
+
+          </td>
+
+            <td>
+
+             <%= number_with_delimiter(item.pallets * 4800) %>
+
+          </td>
+          <td>
+
+             <%= number_with_delimiter(item.total_price) %>
+
+          </td>
+
+          <% if current_user.distributor? && @order.status == "draft"%>
+
+            <td>
+
+              <%= button_to "Delete",
+                  order_order_item_path(@order, item),
+                  method: :delete,
+                  class: "btn btn-sm btn-outline-danger" %>
+
+            </td>
+
+          <% end %>
+
+        </tr>
+
+      <% end %>
+
+    </tbody>
+
+  </table>
+
+  <% if current_user.distributor? && @order.status == "draft" %>
+
+    <div class="mt-4">
+
+      <%= button_to "Submit Order",
+          submit_order_path(@order),
+          method: :patch,
+          class: "btn btn-success" %>
+
+    </div>
+
+  <% end %>
+   
+  <hr>
+
+  <div class="d-flex justify-content-end">
+
+    <h4>
+
+      Total:
+      R <%= number_with_delimiter(@order.total_price) %>
+
+    </h4>
+     <div class="card bg-light border-0 mt-4">
+
+  <div class="card-body">
+
+    <h5>
+      Order Summary
+    </h5>
+
+    <p>
+      Total Products:
+      <strong>
+        <%= @order.order_items.count %>
+      </strong>
+    </p>
+
+    <p>
+      Total Units:
+      <strong>
+        <%= number_with_delimiter(@order.total_units) %>
+      </strong>
+    </p>
+
+    <p>
+      Grand Total:
+      <strong>
+        R <%= number_with_delimiter(@order.total_price) %>
+      </strong>
+    </p>
+
+  </div>
+
+</div>
+
+  </div>
+
+</div>
 
 
-<h3>
-    Order Total:
-    <%= number_with_delimiter(@order.total_price) %>
-</h3>
+  </div>
 
-<% if current_user.distributor? && @order.status == "draft" %>
-
-    <%= button_to "Submit Order",
-        submit_order_path(@order),
-        method: :patch %>
-
-<% end %>
+</div>

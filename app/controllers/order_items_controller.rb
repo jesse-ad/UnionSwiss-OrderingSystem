@@ -1,5 +1,6 @@
 class OrderItemsController < ApplicationController
 
+  
   def new
     @order = Order.find(params[:order_id])
     @order_item = OrderItem.new
@@ -9,6 +10,8 @@ class OrderItemsController < ApplicationController
       [sku.product.name, sku.id]
       end
   end
+  
+  
   
   def create
     @order = Order.find(params[:order_id])

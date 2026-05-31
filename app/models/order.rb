@@ -27,6 +27,13 @@ class Order < ApplicationRecord
     order_items.sum(&:total_price)
   end
 
+  # Calculates total units for items
+  def total_units
+    order_items.sum do |item|
+      item.pallets * 4800
+    end
+  end
+
   # Generates unique order number for every order
   # ChatGPT
   private
