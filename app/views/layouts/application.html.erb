@@ -85,7 +85,34 @@
   </div>
 
 </nav>
-  </body>
-    <%= yield %>
+<% if notice %>
+  <div class="container mt-3">
+    <div class="alert alert-success alert-dismissible fade show">
+      <%= notice %>
+
+      <button type="button"
+              class="btn-close"
+              data-bs-dismiss="alert">
+      </button>
+    </div>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="container mt-3">
+    <div class="alert alert-danger alert-dismissible fade show">
+      <%= alert %>
+
+      <button type="button"
+              class="btn-close"
+              data-bs-dismiss="alert">
+      </button>
+    </div>
+  </div>
+<% end %>
+
+ <%= yield %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+   
 </html>

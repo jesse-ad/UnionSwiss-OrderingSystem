@@ -7,6 +7,23 @@
       Product Details
     </h2>
 
+        <% if @product.errors.any? %>
+
+        <div class="alert alert-danger">
+
+            <ul class="mb-0">
+
+            <% @product.errors.full_messages.each do |message| %>
+
+                <li><%= message %></li>
+
+            <% end %>
+
+            </ul>
+
+        </div>
+
+    <% end %>
     <%= form_with model: @product do |form| %>
 
       <div class="mb-4">

@@ -27,7 +27,8 @@ class OrdersController < ApplicationController
     if @order.save 
       redirect_to order_path(@order)
     else
-      render :new # create new form
+      flash.now[:alert] = @order.errors.full_messages.join(", ")
+      render :new, status: :unprocessable_entity
     end
   end
 
