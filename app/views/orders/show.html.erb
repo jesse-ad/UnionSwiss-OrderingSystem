@@ -5,31 +5,9 @@
 
 <div class="card-body">
 
-  <div class="d-flex justify-content-between align-items-center mb-4">
-
-    <h2>
-      Order <%= @order.order_number %>
-    </h2>
-
-   <% if current_user.distributor? && @order.status == "draft" %>
-
-        <div class="mb-3">
-
-            <button
-            type="button"
-            class="btn text-white"
-            style="background-color:#FF991C;"
-            data-action="click->add-item#show">
-
-            Add Item
-
-            </button>
-
-        </div>
-
-    <% end %>
-
-  </div>
+  <h2 class="mb-4">
+    Order <%= @order.order_number %>
+  </h2>
 
   <div class="row mb-4">
 
@@ -87,7 +65,64 @@
     Items
   </h4>
 
-  <table class="table align-middle">
+  <% if current_user.distributor? && @order.status == "draft" %>
+
+    <div class="card border-0 mb-4">
+
+      <div class="card-body">
+
+        <%= form_with model: [@order, OrderItem.new] do |form| %>
+
+          <div class="row g-3 align-items-end">
+
+            <div class="col-md-8">
+
+              <%= form.label :sku_id,
+                  "Product",
+                  class: "form-label" %>
+
+              <%= form.collection_select(
+                  :sku_id,
+                  @order.distributor.skus,
+                  :id,
+                  :display_name,
+                  {},
+                  { class: "form-select" }
+              ) %>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <%= form.label :pallets,
+                  class: "form-label" %>
+
+              <%= form.number_field :pallets,
+                  value: 1,
+                  min: 1,
+                  class: "form-control" %>
+
+            </div>
+
+            <div class="col-md-2">
+
+              <%= form.submit "Add",
+                  class: "btn text-white w-100",
+                  style: "background-color:#FF991C;" %>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+  <% end %>
+
+  <table class="table table-hover align-middle">
 
     <thead>
 
@@ -96,9 +131,9 @@
         <th>Product</th>
         <th>Pallets</th>
         <th>Units</th>
-        <th>Total cost</th>
+        <th>Total Cost</th>
 
-        <% if current_user.distributor? %>
+        <% if current_user.distributor? && @order.status == "draft" %>
           <th>Actions</th>
         <% end %>
 
@@ -146,18 +181,15 @@
 
           </td>
 
-            <td>
-
-             <%= number_with_delimiter(item.pallets * 4800) %>
-
-          </td>
           <td>
-
-             <%= number_with_delimiter(item.total_price) %>
-
+            <%= number_with_delimiter(item.pallets * 4800) %>
           </td>
 
-          <% if current_user.distributor? && @order.status == "draft"%>
+          <td>
+            R <%= number_with_delimiter(item.total_price) %>
+          </td>
+
+          <% if current_user.distributor? && @order.status == "draft" %>
 
             <td>
 
@@ -178,66 +210,72 @@
 
   </table>
 
+  <div class="mt-4">
+
+    <div>
+
+      <h5 class="mb-4">
+        Order Summary
+      </h5>
+
+      <div class="row">
+
+        <div class="col-md-4">
+
+          <p class="text-muted mb-1">
+            Total Products
+          </p>
+
+          <h4>
+            <%= @order.order_items.count %>
+          </h4>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <p class="text-muted mb-1">
+            Total Units
+          </p>
+
+          <h4>
+            <%= number_with_delimiter(@order.total_units) %>
+          </h4>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <p class="text-muted mb-1">
+            Grand Total
+          </p>
+
+          <h4>
+            R <%= number_with_delimiter(@order.total_price) %>
+          </h4>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
   <% if current_user.distributor? && @order.status == "draft" %>
 
-    <div class="mt-4">
+    <div class="text-end mt-4">
 
       <%= button_to "Submit Order",
           submit_order_path(@order),
           method: :patch,
-          class: "btn btn-success" %>
+          class: "btn btn-success btn-lg" %>
 
     </div>
 
   <% end %>
-   
-  <hr>
-
-  <div class="d-flex justify-content-end">
-
-    <h4>
-
-      Total:
-      R <%= number_with_delimiter(@order.total_price) %>
-
-    </h4>
-     <div class="card bg-light border-0 mt-4">
-
-  <div class="card-body">
-
-    <h5>
-      Order Summary
-    </h5>
-
-    <p>
-      Total Products:
-      <strong>
-        <%= @order.order_items.count %>
-      </strong>
-    </p>
-
-    <p>
-      Total Units:
-      <strong>
-        <%= number_with_delimiter(@order.total_units) %>
-      </strong>
-    </p>
-
-    <p>
-      Grand Total:
-      <strong>
-        R <%= number_with_delimiter(@order.total_price) %>
-      </strong>
-    </p>
-
-  </div>
 
 </div>
-
-  </div>
-
-</div>
-
 
   </div>
 
