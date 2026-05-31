@@ -1,10 +1,69 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+
+body {
+    background: linear-gradient(
+        135deg,
+        #fff7f2,
+        #f5f5f5
+    );
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.btn-orange {
+    background-color: #ff6b00;
+    color: white;
+}
+
+.btn-orange:hover {
+    background-color: #e55f00;
+    color: white;
+}
+body {
+    background-color: #f8f8f8;
+}
+
+.dashboard-card {
+    border: none;
+    border-radius: 25px;
+    background-color: white;
+    transition: all 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+}
+
+.dashboard-card h1 {
+    color: #FF991C;
+    font-weight: bold;
+}
+
+.dashboard-card h5 {
+    font-weight: 600;
+}
+
+.sidebar {
+    min-height: 100vh;
+    background-color: white;
+    border-right: 1px solid #eeeeee;
+}
+
+.sidebar .btn {
+    border-radius: 12px;
+}
+
+.sidebar .btn:hover {
+    background-color: #FFF7F2;
+    color: #FF991C;
+}

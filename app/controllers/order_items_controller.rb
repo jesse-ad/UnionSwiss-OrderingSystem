@@ -15,7 +15,7 @@ class OrderItemsController < ApplicationController
     @order_item = @order.order_items.build(order_item_params)
 
     if @order_item.save 
-      redirect_to orders_path 
+      redirect_to order_path(@order)
     else
       render :new 
     end
@@ -58,7 +58,4 @@ class OrderItemsController < ApplicationController
     params.require(:order_item).permit(:sku_id, :pallets)
   end
 
-  
-
-  
 end

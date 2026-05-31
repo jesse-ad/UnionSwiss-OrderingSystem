@@ -14,8 +14,12 @@ Rails.application.routes.draw do
     resources :order_items
   end
 
-  # For incrementing and decrementing products
   resources :orders do
+
+  member do
+    patch :submit
+  end
+
   resources :order_items do
     member do
       patch :increment
@@ -23,13 +27,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :orders do
-  member do
-    patch :submit
-    end
-  end
-  
 end
+
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

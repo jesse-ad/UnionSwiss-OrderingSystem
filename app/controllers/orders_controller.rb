@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
     @order.distributor = current_user.distributor
 
     if @order.save # If the    has been saved
-      redirect_to orders_path # Redirect to the   page
+      redirect_to @order # Redirect to the  
     else
       render :new # create new form
     end
@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.update(status: "pending")
 
-    redirect_to order_path(@order)
+    redirect_to orders_path, notice: "Order submitted successfully"
   end
 
   private
