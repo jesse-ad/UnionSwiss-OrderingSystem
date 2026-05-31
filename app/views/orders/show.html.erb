@@ -71,6 +71,7 @@
 
       <div class="card-body">
 
+        <% if @order.distributor.skus.any? %>
         <%= form_with model: [@order, OrderItem.new] do |form| %>
 
           <div class="row g-3 align-items-end">
@@ -114,6 +115,13 @@
 
           </div>
 
+        <% end %>
+        <% else %>
+            <div class="alert alert-warning">
+                No products have been configured for your account yet.
+
+                Please contact an administrator.
+            </div>
         <% end %>
 
       </div>

@@ -6,7 +6,7 @@ class PagesController < ApplicationController
     if current_user.admin?
       redirect_to admin_path
     else
-      redirect_to distributor_path
+      redirect_to distributor_dashboard_path
     end
   end
 
@@ -18,20 +18,17 @@ class PagesController < ApplicationController
   end
 
   def distributor
-    @skus = current_user.distributor.skus.includes(:product)
+    if current_user.distributor.nil?
+      redirect_to root_path,
+                  alert: "No distributor account is linked to this user."
+      return
+    end
 
+    @skus = current_user.distributor.skus.includes(:product)
     @recent_orders = current_user.distributor.orders
                                   .order(created_at: :desc)
                                   .limit(5)
   end
 
-  # For distributor dashboard
-  def distributor
-    @skus = current_user.distributor.skus.includes(:product)
-
-    @recent_orders = current_user.distributor.orders
-                                  .order(created_at: :desc)
-                                  .limit(5)
-  end
   
 end

@@ -15,12 +15,20 @@ class OrderItemsController < ApplicationController
   
   def create
     @order = Order.find(params[:order_id])
+
+    if params[:order_item][:sku_id].blank?
+      redirect_to order_path(@order),
+                  alert: "Please select a product."
+      return
+    end
+
     @order_item = @order.order_items.build(order_item_params)
 
-    if @order_item.save 
+    if @order_item.save
       redirect_to order_path(@order)
     else
-      render :new 
+      redirect_to order_path(@order),
+                  alert: "Unable to add product."
     end
   end
 

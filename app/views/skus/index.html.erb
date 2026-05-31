@@ -61,10 +61,10 @@
               edit_sku_path(sku),
               class: "btn btn-sm btn-outline-warning" %>
 
-          <%= link_to "Delete",
-              sku_path(sku),
-              data: { turbo_method: :delete },
-              class: "btn btn-sm btn-outline-danger" %>
+          <%= button_to "Delete",
+            sku_path(sku),
+            method: :delete,
+            class: "btn btn-sm btn-outline-danger" %>
 
         </td>
 

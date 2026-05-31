@@ -38,22 +38,26 @@ class DistributorsController < ApplicationController
     @distributor = Distributor.find(params[:id])
 
     if @distributor.update(distributor_params)
-      #puts @distributor.inspect
       redirect_to distributors_path
     else
-      #puts @distributor.errors.full_messages
       render :edit
     end
   end
 
-  # For deleting a product
+  # For deleting a distributor
   def destroy
     @distributor = Distributor.find(params[:id])
 
-    @distributor.destroy 
+    if @distributor.orders.exists? || @distributor.skus.exists?
+      redirect_to distributors_path, alert: "Cannot delete distributor because it is linked to orders or SKUs."
+      return
+    end
 
-    redirect_to distributors_path
+    @distributor.destroy
+
+    redirect_to distributors_path, notice: "Distributor deleted successfully."
   end
+
 
   private
   # Prevent dangerous/unexpected fields from users

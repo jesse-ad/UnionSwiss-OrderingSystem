@@ -44,10 +44,16 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
 
-    @product.destroy 
+    if @product.skus.exists?
+      redirect_to products_path, alert: "Cannot delete product because it is linked to existing SKUs."
+      return
+    end
 
-    redirect_to products_path
+    @product.destroy
+
+    redirect_to products_path, notice: "Product deleted successfully."
   end
+
 
   private
 

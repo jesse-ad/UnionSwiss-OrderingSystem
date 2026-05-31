@@ -11,16 +11,16 @@ class SkusController < ApplicationController
 
   # Shows form for creating new 
   def new
-    @skus = Sku.new
+    @sku = Sku.new
     @distributors = Distributor.all
     @products = Product.all
   end
 
    # Saves the new
   def create
-    @skus = Sku.new(skus_params)
+    @sku = Sku.new(skus_params)
 
-    if @skus.save # If the  has been saved
+    if @sku.save # If the  has been saved
       redirect_to skus_path # Redirect to the  page
     else
       render :new # create new form
@@ -29,14 +29,14 @@ class SkusController < ApplicationController
 
     # Shows form for editing 
   def edit 
-    @skus = Sku.find(params[:id])
+    @sku = Sku.find(params[:id])
     @distributors = Distributor.all
     @products = Product.all
   end
 
   # Saves the edited 
   def update
-    @skus = Sku.find(params[:id])
+    @sku = Sku.find(params[:id])
 
     if @sku.update(skus_params)
       redirect_to skus_path
@@ -46,13 +46,18 @@ class SkusController < ApplicationController
   end
 
 
-  # For deleting a 
+  # For deleting a SKU
   def destroy
-    @skus = Sku.find(params[:id])
+    @sku = Sku.find(params[:id])
 
-    @skus.destroy 
+    if @sku.order_items.exists?
+      redirect_to skus_path, alert: "Cannot delete SKU because it has already been used in orders."
+      return
+    end
 
-    redirect_to skus_path
+    @sku.destroy
+
+    redirect_to skus_path, notice: "SKU deleted successfully."
   end
 
   private

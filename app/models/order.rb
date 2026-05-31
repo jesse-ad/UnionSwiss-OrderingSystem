@@ -2,7 +2,7 @@ class Order < ApplicationRecord
   belongs_to :distributor
   belongs_to :user
 
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
 
   before_validation :generate_order_number, on: :create
   before_validation :set_default_status, on: :create
