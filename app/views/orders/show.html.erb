@@ -11,12 +11,21 @@
       Order <%= @order.order_number %>
     </h2>
 
-    <% if current_user.distributor? && @order.status == "draft" %>
+   <% if current_user.distributor? && @order.status == "draft" %>
 
-      <%= link_to "Add Item",
-          new_order_order_item_path(@order),
-          class: "btn text-white",
-          style: "background-color:#FF991C;" %>
+        <div class="mb-3">
+
+            <button
+            type="button"
+            class="btn text-white"
+            style="background-color:#FF991C;"
+            data-action="click->add-item#show">
+
+            Add Item
+
+            </button>
+
+        </div>
 
     <% end %>
 
