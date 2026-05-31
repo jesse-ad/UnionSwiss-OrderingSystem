@@ -1,13 +1,81 @@
-<h1>SKUs</h1>
+<div class="container mt-5">
 
-<%= link_to "New SKU", new_sku_path %>
-<% @skus.each do |sku|%>
-    <p>
-        <%= sku.distributor.name %>
-        <%= sku.product.name %>
-        <%= sku.price_per_unit %>
-        <%= link_to "Edit", edit_sku_path(sku) %>
-        <%= link_to "Delete", sku_path(sku), data: {turbo_method: :delete} %>
+  <div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+  <div>
+
+    <h2 class="page-title">
+      SKUs
+    </h2>
+
+    <p class="page-subtitle">
+      Manage distributor pricing
     </p>
 
-<% end %>
+  </div>
+
+  <%= link_to "New SKU",
+      new_sku_path,
+      class: "btn primary-btn" %>
+
+</div>
+
+<table class="table table-hover align-middle">
+
+  <thead>
+
+    <tr>
+
+      <th>Distributor</th>
+      <th>Product</th>
+      <th>Price Per Unit</th>
+      <th class="text-end">Actions</th>
+
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    <% @skus.each do |sku| %>
+
+      <tr>
+
+        <td>
+          <%= sku.distributor.name %>
+        </td>
+
+        <td>
+          <%= sku.product.name %>
+        </td>
+
+        <td>
+          <%= number_with_delimiter(sku.price_per_unit) %>
+        </td>
+
+        <td class="text-end">
+
+          <%= link_to "Edit",
+              edit_sku_path(sku),
+              class: "btn btn-sm btn-outline-warning" %>
+
+          <%= link_to "Delete",
+              sku_path(sku),
+              data: { turbo_method: :delete },
+              class: "btn btn-sm btn-outline-danger" %>
+
+        </td>
+
+      </tr>
+
+    <% end %>
+
+  </tbody>
+
+</table>
+
+  </div>
+
+</div>

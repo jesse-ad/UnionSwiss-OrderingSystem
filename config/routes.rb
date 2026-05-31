@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root "pages#home"
   get "admin", to: "pages#admin"
-  #get "distributor", to: "pages#distributor"
+  get "distributor", to: "pages#distributor"
 
   resources :products
   resources :distributors

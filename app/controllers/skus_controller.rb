@@ -1,19 +1,19 @@
 class SkusController < ApplicationController
 
   before_action :require_admin
-  
+
   # For displaying 
   def index 
     @skus = Sku.all
-    @distributor = Distributor.all
-    @product = Product.all
+    @distributors = Distributor.all
+    @products = Product.all
   end
 
   # Shows form for creating new 
   def new
     @skus = Sku.new
-    @distributor = Distributor.all
-    @product = Product.all
+    @distributors = Distributor.all
+    @products = Product.all
   end
 
    # Saves the new
@@ -30,8 +30,8 @@ class SkusController < ApplicationController
     # Shows form for editing 
   def edit 
     @skus = Sku.find(params[:id])
-    @distributor = Distributor.all
-    @product = Product.all
+    @distributors = Distributor.all
+    @products = Product.all
   end
 
   # Saves the edited 

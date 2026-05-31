@@ -51,12 +51,20 @@ class OrdersController < ApplicationController
     end
   end
 
-  def submit 
-    @order = Order.find(params[:id])
-    @order.update(status: "pending")
+ def submit
+  @order = Order.find(params[:id])
 
-    redirect_to orders_path, notice: "Order submitted successfully"
+  if @order.order_items.empty?
+    redirect_to order_path(@order),
+                alert: "You must add at least one product before submitting."
+    return
   end
+
+  @order.update(status: "pending")
+
+  redirect_to orders_path,
+              notice: "Order submitted successfully."
+end
 
   private
   # Prevent dangerous/unexpected fields from users

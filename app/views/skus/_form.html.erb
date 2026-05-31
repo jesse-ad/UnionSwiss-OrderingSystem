@@ -1,0 +1,73 @@
+<div class="container mt-5">
+
+  <div class="row justify-content-center">
+
+```
+<div class="col-md-8">
+
+  <div class="page-card">
+
+    <h2 class="mb-4">
+      SKU Details
+    </h2>
+
+    <%= form_with model: @sku do |form| %>
+
+      <div class="mb-3">
+
+        <%= form.label :distributor_id,
+            "Distributor",
+            class: "form-label" %>
+
+        <%= form.collection_select(
+            :distributor_id,
+            @distributors,
+            :id,
+            :name,
+            {},
+            { class: "form-select" }
+        ) %>
+
+      </div>
+
+      <div class="mb-3">
+
+        <%= form.label :product_id,
+            "Product",
+            class: "form-label" %>
+
+        <%= form.collection_select(
+            :product_id,
+            @products,
+            :id,
+            :name,
+            {},
+            { class: "form-select" }
+        ) %>
+
+      </div>
+
+      <div class="mb-4">
+
+        <%= form.label :price_per_unit,
+            class: "form-label" %>
+
+        <%= form.number_field :price_per_unit,
+            step: 0.01,
+            class: "form-control" %>
+
+      </div>
+
+      <%= form.submit "Save SKU",
+          class: "btn primary-btn" %>
+
+    <% end %>
+
+  </div>
+
+</div>
+```
+
+  </div>
+
+</div>

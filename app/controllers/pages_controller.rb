@@ -6,7 +6,7 @@ class PagesController < ApplicationController
     if current_user.admin?
       redirect_to admin_path
     else
-      redirect_to orders_path
+      redirect_to distributor_path
     end
   end
 
@@ -15,6 +15,23 @@ class PagesController < ApplicationController
     @distributor_count = Distributor.count
     @sku_count = Sku.count
     @order_count = Order.count
+  end
+
+  def distributor
+    @skus = current_user.distributor.skus.includes(:product)
+
+    @recent_orders = current_user.distributor.orders
+                                  .order(created_at: :desc)
+                                  .limit(5)
+  end
+
+  # For distributor dashboard
+  def distributor
+    @skus = current_user.distributor.skus.includes(:product)
+
+    @recent_orders = current_user.distributor.orders
+                                  .order(created_at: :desc)
+                                  .limit(5)
   end
   
 end
