@@ -1,6 +1,6 @@
 <div class="container-fluid p-4">
 
-  <div class="card border-0 shadow-sm">
+  <div class="card border-0 shadow-sm" style="border-radius:35px; border:none">
 
 
 <div class="card-body">
@@ -21,7 +21,7 @@
       <%= link_to "Start New Order",
           new_order_path,
           class: "btn text-white",
-          style: "background-color:#FF991C;" %>
+          style: "background-color:#FF991C; border:none; border-radius:35px" %>
     <% end %>
 
   </div>
@@ -41,7 +41,6 @@
 
           <th>Status</th>
           <th>Delivery Date</th>
-          <th>Actions</th>
         </tr>
 
       </thead>
@@ -117,27 +116,6 @@
 
             <td>
               <%= order.required_delivery_date %>
-            </td>
-
-            <td>
-
-              <div class="d-flex gap-2">
-
-                <%= link_to "View",
-                    order_path(order),
-                    class: "btn btn-sm btn-outline-primary" %>
-
-                <% if current_user.admin? %>
-
-                  <%= button_to "Delete",
-                      order_path(order),
-                      method: :delete,
-                      class: "btn btn-sm btn-outline-danger" %>
-
-                <% end %>
-
-              </div>
-
             </td>
 
           </tr>

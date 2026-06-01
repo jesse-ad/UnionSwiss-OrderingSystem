@@ -1,6 +1,6 @@
 <div class="container mt-5">
 
-  <div class="card border-0 shadow-sm">
+  <div class="card border-0 shadow-sm" style="border-radius:35px; border:none">
 
 
 <div class="card-body">
@@ -109,7 +109,7 @@
 
               <%= form.submit "Add",
                   class: "btn text-white w-100",
-                  style: "background-color:#FF991C;" %>
+                  style: "background-color:#FF991C; border-radius:35px" %>
 
             </div>
 
@@ -168,7 +168,7 @@
                 <%= button_to "-",
                     decrement_order_order_item_path(@order, item),
                     method: :patch,
-                    class: "btn btn-sm btn-outline-secondary" %>
+                    class: "btn btn-sm btn-outline-secondary", style: "border-radius:25px"%>
 
                 <span>
                   <%= item.pallets %>
@@ -177,7 +177,7 @@
                 <%= button_to "+",
                     increment_order_order_item_path(@order, item),
                     method: :patch,
-                    class: "btn btn-sm btn-outline-secondary" %>
+                    class: "btn btn-sm btn-outline-secondary", style: "border-radius:25px"%>
 
               </div>
 
@@ -194,7 +194,7 @@
           </td>
 
           <td>
-            R <%= number_with_delimiter(item.total_price) %>
+             <%= number_with_delimiter(item.total_price) %>
           </td>
 
           <% if current_user.distributor? && @order.status == "draft" %>
@@ -259,7 +259,7 @@
           </p>
 
           <h4>
-            R <%= number_with_delimiter(@order.total_price) %>
+             <%= number_with_delimiter(@order.total_price) %>
           </h4>
 
         </div>
@@ -277,7 +277,7 @@
       <%= button_to "Submit Order",
           submit_order_path(@order),
           method: :patch,
-          class: "btn btn-success btn-lg" %>
+          class: "btn btn-success btn-lg", style:"border-radius:35px"%>
 
     </div>
 

@@ -116,22 +116,22 @@ font-weight: 600;
 }
 
 .btn {
-border-radius: 10px;
+border-radius: 35px;
 }
 .card {
     border-radius: 35px;
 }
 
 .form-control {
-    border-radius: 12px;
+    border-radius: 35px;
 }
 
 .btn {
-    border-radius: 12px;
+    border-radius: 35px;
 }
 
 .status-select {
-    border-radius: 20px;
+    border-radius: 35px;
     border: none;
     background-color: #f5f5f5;
 }
@@ -156,7 +156,7 @@ margin-bottom: 30px;
 background-color: #FF991C;
 color: white;
 border: none;
-border-radius: 10px;
+border-radius: 35px;
 }
 
 .primary-btn:hover {
@@ -166,7 +166,7 @@ color: white;
 
 .form-control,
 .form-select {
-border-radius: 10px;
+border-radius: 35px;
 }
 
 .table th {
@@ -197,7 +197,7 @@ font-weight: 600;
   background-color: #FF991C;
   border: none;
   color: white;
-  border-radius: 10px;
+  border-radius: 35px;
   padding: 10px 18px;
   font-weight: 500;
   transition: 0.2s ease;
@@ -207,4 +207,11 @@ font-weight: 600;
   background-color: #e68700;
   color: white;
   transform: translateY(-1px);
+}
+.status-select {
+  border-radius: 35px !important;
+  background-color: #f5f5f5 !important;
+  border: none !important;
+  color: #333;
+  min-width: 50px;
 }
