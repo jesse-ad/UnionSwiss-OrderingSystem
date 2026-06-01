@@ -5,7 +5,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
 
   <div>
-
+<!-- Lists all distributors in database and gives user option to edit, delete, and create new-->
     <h2 class="page-title">
       Distributors
     </h2>
@@ -22,7 +22,7 @@
       style: "background-color:#FF991C; border:none; border-radius:35px" %>
 
 </div>
-
+<!--Distributor table-->
 <table class="table table-hover align-middle">
 
   <thead>
@@ -57,6 +57,7 @@
 
   <div class="d-flex justify-content-end align-items-center gap-2">
 
+<!--Edit button-->
     <%= link_to edit_distributor_path(distributor),
         class: "icon-btn" do %>
 
@@ -66,6 +67,7 @@
 
     <% end %>
 
+<!-- Delete button -->
     <%= button_to distributor_path(distributor),
         method: :delete,
         form: {

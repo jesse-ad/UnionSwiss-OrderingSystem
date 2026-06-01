@@ -2,7 +2,7 @@
 
   <div class="card border-0 shadow-sm" style="border-radius:35px; border:none">
 
-
+<!-- Full order list shown to administrator -->
 <div class="card-body">
 
   <div class="d-flex justify-content-between align-items-center mb-4">
@@ -17,7 +17,8 @@
       </p>
     </div>
 
-    <% unless current_user.admin? %>
+<!-- Only admins have access to a Start New button -->
+    <% unless current_user.admin? %> 
       <%= link_to "Start New Order",
           new_order_path,
           class: "btn text-white",
@@ -26,6 +27,7 @@
 
   </div>
 
+<!-- Order table -->
   <div class="table-responsive">
 
     <table class="table table-hover align-middle">
@@ -35,6 +37,7 @@
         <tr>
           <th>Order Number</th>
 
+<!--Only display distributor column if user is an admin -->
           <% if current_user.admin? %>
             <th>Distributor</th>
           <% end %>
@@ -68,6 +71,7 @@
 
             <td>
 
+              <!-- For updating order status -->
               <% if current_user.admin? %>
 
                 <%= form_with model: order do |form| %>
