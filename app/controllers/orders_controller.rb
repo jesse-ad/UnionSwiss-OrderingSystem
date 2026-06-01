@@ -1,9 +1,11 @@
+# Handles CRUD operations for all orders.
+# Admins can only view orders and change its status.
+# Distributors can create and view their orders.
 class OrdersController < ApplicationController
+  before_action :require_distributor, only: [ :new, :create ]
 
-  before_action :require_distributor, only: [:new, :create]
-
-  # For displaying 
-  def index 
+  # For displaying an order
+  def index
     if current_user.admin?
       @orders = Order.all
     else
@@ -11,20 +13,19 @@ class OrdersController < ApplicationController
     end
   end
 
-  # Shows form for creating new 
+  # Shows form for creating new order
   def new
     @order = Order.new
   end
 
-   # Saves the new 
+  # Saves the new order to the database
   def create
-    
     @order = Order.new(order_params)
 
     @order.user = current_user
     @order.distributor = current_user.distributor
 
-    if @order.save 
+    if @order.save
       redirect_to order_path(@order)
     else
       flash.now[:alert] = @order.errors.full_messages.join(", ")
@@ -32,7 +33,8 @@ class OrdersController < ApplicationController
     end
   end
 
-  def show 
+  # Shows the order
+  def show
     @order = Order.find(params[:id])
   end
 
@@ -40,11 +42,10 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
-  # for updating status
+  # Updates order in database
   def update
     @order = Order.find(params[:id])
 
-    
     if @order.update(order_params)
       redirect_to orders_path
     else
@@ -52,20 +53,21 @@ class OrdersController < ApplicationController
     end
   end
 
- def submit
-  @order = Order.find(params[:id])
+  # Submits an order
+  def submit
+    @order = Order.find(params[:id])
 
-  if @order.order_items.empty?
-    redirect_to order_path(@order),
-                alert: "You must add at least one product before submitting."
-    return
+    if @order.order_items.empty? # If no orders, don't allow user to submit the order
+      redirect_to order_path(@order),
+                  alert: "You must add at least one product before submitting."
+      return
+    end
+
+    @order.update(status: "pending") # Default path once submitted
+
+    redirect_to orders_path,
+                notice: "Order submitted successfully."
   end
-
-  @order.update(status: "pending")
-
-  redirect_to orders_path,
-              notice: "Order submitted successfully."
-end
 
   private
   # Prevent dangerous/unexpected fields from users
@@ -79,7 +81,4 @@ end
       redirect_to root_path
     end
   end
-
-
 end
-

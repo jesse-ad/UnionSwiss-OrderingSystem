@@ -3,9 +3,12 @@
 
 SETUP INSTRUCTIONS
 Ensure the following software is installed:
-- Ruby 3.x
-- Rails 8.x
-- SQLite3
+- homebrew (if you do not have): /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+- Ruby 3.x: brew install ruby (Check ruby version [ruby -v] If it says ruby 2.x.x, run this command: echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> ~/.zprofile
+source ~/.zprofile)
+- SQLite3: brew install sqlite
+- bundler: gem install bundler
+- rails: brew install rails (Check [rails -v], If it says its not installed, run command [gem environment], look for EXECUTABLE DIRECTORY then run command [echo 'export PATH="/PATH/FROM/EXECUTABLE/DIRECTORY:$PATH"' >> ~/.zprofile] and [source ~/.zprofile])
 
 1. Navigate to the project folder: cd union_swiss_ordering_system
 2. Install dependencies: bundle install

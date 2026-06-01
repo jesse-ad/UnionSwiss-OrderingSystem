@@ -1,7 +1,9 @@
+# Handles different poges for admin and distributor.
 class PagesController < ApplicationController
-
   before_action :authenticate_user!
 
+  # Go to admin page if current user is an admin and go to distributor page
+  # if current user is a distributor
   def home
     if current_user.admin?
       redirect_to admin_path
@@ -10,6 +12,7 @@ class PagesController < ApplicationController
     end
   end
 
+  # Dashboard values
   def admin
     @product_count = Product.count
     @distributor_count = Distributor.count
@@ -21,6 +24,7 @@ class PagesController < ApplicationController
     @cancelled_orders = Order.where(status: "cancelled").count
   end
 
+  # Displays distributors specific skus and recent orders
   def distributor
   @skus = current_user.distributor.skus.includes(:product)
 

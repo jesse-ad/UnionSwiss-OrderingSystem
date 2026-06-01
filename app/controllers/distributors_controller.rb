@@ -1,9 +1,10 @@
+# Handles CRUD operations for distributors.
+# Only admins may have access to the distributor list.
 class DistributorsController < ApplicationController
-
   before_action :require_admin
 
-  # For displaying distributors
-  def index 
+  # Displays distributors
+  def index
     @distributors = Distributor.all
   end
 
@@ -12,28 +13,27 @@ class DistributorsController < ApplicationController
     @distributor = Distributor.new
   end
 
-   # Saves the new product
+  # Saves the new distributor to the database
   def create
     @distributor = Distributor.new(distributor_params)
-    
-    if @distributor.save # If the product has been saved
+
+    if @distributor.save
 
       # Create new distributor with email and password
-      User.create( email: params[:email], password: params[:password], role: "distributor", distributor: @distributor)
+      User.create(email: params[:email], password: params[:password], role: "distributor", distributor: @distributor)
 
-      # Redirect to the product page
-      redirect_to distributors_path 
+      redirect_to distributors_path
     else
-      render :new # create new form
+      render :new
     end
   end
 
-    # Shows form for editing disributor
-  def edit 
+  # Shows form for editing disributor
+  def edit
     @distributor = Distributor.find(params[:id])
   end
 
-  # Saves the edited distributor
+  # Saves the edited distributor to the database
   def update
     @distributor = Distributor.find(params[:id])
 
@@ -44,7 +44,7 @@ class DistributorsController < ApplicationController
     end
   end
 
-  # For deleting a distributor
+  # Deletes a distributor
   def destroy
     @distributor = Distributor.find(params[:id])
 
@@ -65,13 +65,10 @@ class DistributorsController < ApplicationController
     params.require(:distributor).permit(:name, :currency)
   end
 
-
-  private
   # If a user is not an admin, they cannot access the distributors list
   def require_admin
     unless current_user.admin?
       redirect_to root_path
     end
   end
-
 end

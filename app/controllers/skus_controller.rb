@@ -1,22 +1,23 @@
+# Handles CRUD operations for all SKUs.
+# Only admins are allowed to access the full SKU list.
 class SkusController < ApplicationController
-
   before_action :require_admin
 
-  # For displaying 
-  def index 
+  # For displaying SKUs
+  def index
     @skus = Sku.all
     @distributors = Distributor.all
     @products = Product.all
   end
 
-  # Shows form for creating new 
+  # Shows form for creating new SKU
   def new
     @sku = Sku.new
     @distributors = Distributor.all
     @products = Product.all
   end
 
-   # Saves the new
+  # Saves the new SKU to the database.
   def create
     @sku = Sku.new(skus_params)
 
@@ -27,14 +28,14 @@ class SkusController < ApplicationController
     end
   end
 
-    # Shows form for editing 
-  def edit 
+  # Shows form for editing a SKU
+  def edit
     @sku = Sku.find(params[:id])
     @distributors = Distributor.all
     @products = Product.all
   end
 
-  # Saves the edited 
+  # Saves the edited SKU to the database
   def update
     @sku = Sku.find(params[:id])
 
@@ -46,7 +47,7 @@ class SkusController < ApplicationController
   end
 
 
-  # For deleting a SKU
+  # Deletes a SKU from the database
   def destroy
     @sku = Sku.find(params[:id])
 
@@ -66,14 +67,10 @@ class SkusController < ApplicationController
     params.require(:sku).permit(:distributor_id, :product_id, :price_per_unit)
   end
 
-  private
   # If a user is not an admin, they cannot access the full skus list
   def require_admin
     unless current_user.admin?
       redirect_to root_path
     end
   end
-
 end
-
-
