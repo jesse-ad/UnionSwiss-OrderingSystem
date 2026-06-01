@@ -15,20 +15,17 @@ class PagesController < ApplicationController
     @distributor_count = Distributor.count
     @sku_count = Sku.count
     @order_count = Order.count
+    @pending_orders = Order.where(status: "pending").count
+    @processing_orders = Order.where(status: "processing").count
+    @delivered_orders = Order.where(status: "delivered").count
+    @cancelled_orders = Order.where(status: "cancelled").count
   end
 
   def distributor
-    if current_user.distributor.nil?
-      redirect_to root_path,
-                  alert: "No distributor account is linked to this user."
-      return
-    end
+  @skus = current_user.distributor.skus.includes(:product)
 
-    @skus = current_user.distributor.skus.includes(:product)
-    @recent_orders = current_user.distributor.orders
-                                  .order(created_at: :desc)
-                                  .limit(5)
+  @recent_orders = current_user.distributor.orders
+                                .order(created_at: :desc)
+                                .limit(5)
   end
-
-  
 end

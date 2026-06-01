@@ -30,6 +30,7 @@
         <%= link_to "Distributors",
             distributors_path,
             class: "btn btn-light text-start" %>
+        
 
       </div>
 
@@ -183,7 +184,90 @@
 
     </div>
 
+    <div class="row g-4 mt-2">
+
+  <div class="col-lg-3 col-md-6">
+
+    <div class="card dashboard-card">
+
+      <div class="card-body">
+
+        <h5 class="text-dark">
+          Pending Orders
+        </h5>
+
+        <h1>
+          <%= @pending_orders %>
+        </h1>
+
+      </div>
+
+    </div>
+
   </div>
+
+  <div class="col-lg-3 col-md-6">
+
+    <div class="card dashboard-card">
+
+      <div class="card-body">
+
+        <h5 class="text-dark">
+          Processing Orders
+        </h5>
+
+        <h1>
+          <%= @processing_orders %>
+        </h1>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-3 col-md-6">
+
+    <div class="card dashboard-card">
+
+      <div class="card-body">
+
+        <h5 class="text-dark">
+          Delivered Orders
+        </h5>
+
+        <h1>
+          <%= @delivered_orders %>
+        </h1>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-3 col-md-6">
+
+    <div class="card dashboard-card">
+
+      <div class="card-body">
+
+        <h5 class="text-dark">
+          Cancelled Orders
+        </h5>
+
+        <h1>
+          <%= @cancelled_orders %>
+        </h1>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
   <div class="card border-0 shadow-sm mt-5">
 
   <div class="card-body">
@@ -204,7 +288,7 @@
 
       <tbody>
 
-        <% Order.last(5).reverse.each do |order| %>
+        <% Order.where.not(status: "draft").last(5).reverse.each do |order| %>
 
           <tr>
 
@@ -222,7 +306,7 @@
 
           </tr>
 
-        <% end %>
+       <% end %>
 
       </tbody>
 

@@ -16,7 +16,7 @@
 
   </div>
 
-  <%= link_to "New Distributor",
+  <%= link_to "+ New Distributor",
       new_distributor_path,
       class: "btn primary-btn" %>
 
@@ -52,18 +52,39 @@
           <%= distributor.currency %>
         </td>
 
-        <td class="text-end">
+    <td class="text-end">
 
-          <%= link_to "Edit",
-            edit_distributor_path(distributor),
-            class: "btn btn-sm btn-outline-secondary" %>
+  <div class="d-flex justify-content-end align-items-center gap-2">
 
-         <%= button_to "Delete",
-            distributor_path(distributor),
-            method: :delete,
-            class: "btn btn-sm btn-outline-danger" %>
+    <%= link_to edit_distributor_path(distributor),
+        class: "icon-btn" do %>
 
-        </td>
+      <%= image_tag "pen.png",
+          size: "22x22",
+          alt: "pen.png" %>
+
+    <% end %>
+
+    <%= button_to distributor_path(distributor),
+        method: :delete,
+        form: {
+            class: "d-inline",
+          data: {
+            turbo_confirm: "Are you sure you want to delete this distributor?"
+          }
+        },
+        class: "icon-btn delete-btn" do %>
+
+      <%= image_tag "bin.png",
+          size: "24x24",
+          alt: "Delete" %>
+
+    <% end %>
+
+  </div>
+
+</td>
+
 
       </tr>
 
