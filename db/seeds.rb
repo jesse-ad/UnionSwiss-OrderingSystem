@@ -71,11 +71,6 @@ Sku.create(
 )
 Sku.create(
   distributor: kuwait,
-  product: oil_25ml,
-  price_per_unit: 2.99
-)
-Sku.create(
-  distributor: kuwait,
   product: skin_gel_200ml,
   price_per_unit: 6.99
 )

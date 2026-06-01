@@ -1,10 +1,6 @@
 
 body {
-    background: linear-gradient(
-        135deg,
-        #fff7f2,
-        #f5f5f5
-    );
+    background-color: #f6f6f6 !important;
 }
 
 .card {

@@ -4,20 +4,25 @@
 SETUP INSTRUCTIONS
 Ensure the following software is installed:
 - homebrew (if you do not have): /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-- Ruby 3.x: brew install ruby (Check ruby version [ruby -v] If it says ruby 2.x.x, run this command: echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> ~/.zprofile
-source ~/.zprofile)
+- Ruby 3.x.x or Ruby 4.x.x: brew install ruby (Check ruby version [ruby -v] If it says ruby 2.x.x, run this command: [echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> ~/.zprofile] and 
+[source ~/.zprofile])
 - SQLite3: brew install sqlite
 - bundler: gem install bundler
-- rails: brew install rails (Check [rails -v], If it says its not installed, run command [gem environment], look for EXECUTABLE DIRECTORY then run command [echo 'export PATH="/PATH/FROM/EXECUTABLE/DIRECTORY:$PATH"' >> ~/.zprofile] and [source ~/.zprofile])
-
-1. Navigate to the project folder: cd union_swiss_ordering_system
-2. Install dependencies: bundle install
-3. Run the database migrations: rails db:migrate
-4. (Optional) Populate the database: rails db:seed
+- rails: brew install rails (Check [rails -v], If it says it's not installed, run command [gem environment], look for EXECUTABLE DIRECTORY then run these commands [echo 'export PATH="/PATH/FROM/EXECUTABLE/DIRECTORY:$PATH"' >> ~/.zprofile] and [source ~/.zprofile]) -> Repeat this and the ruby commands when in project folder and rails commands do not work.
 
 HOW TO RUN
-1. Start rails server: rails server OR bin/dev
-2. Open a web browser adn navigate to: https://localhost:3000
+1. Navigate to the project folder: cd PATH/TO/union_swiss_ordering_system
+2. Install dependencies: bundle install
+3. Run the database migrations: rails db:migrate
+4. Populate the database: rails db:seed
+5. Admin user credentials: email: admin1@gmail.com, pwd: admin1
+6. Distributor users credentials: email: kuwait@gmail.com, pwd: kuwait
+                                  email: canada@gmail.com, pwd: canada
+                                  email: germany@gmail.com, pwd: germany
+                                  email: austrailia@gmail.com, pwd: austrailia (NO CONFIGURED SKUs)
+7. Start rails server: rails server OR bin/dev
+8. Open a web browser adn navigate to: http://localhost:3000
+9. sign
 
 APPLICATION OVERVIEW
 The Union Swiss Ordering System is a Ruby on Rails web application developed to streamline the order management process between distributors and administrators.
