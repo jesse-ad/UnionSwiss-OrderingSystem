@@ -13,16 +13,18 @@ Ensure the following software is installed:
 HOW TO RUN
 1. Navigate to the project folder: cd PATH/TO/union_swiss_ordering_system
 2. Install dependencies: bundle install
-3. Run the database migrations: rails db:migrate
-4. Populate the database: rails db:seed
-5. Admin user credentials: email: admin1@gmail.com, pwd: admin1
-6. Distributor users credentials: email: kuwait@gmail.com, pwd: kuwait
+3. Run database: rails db:setup
+4. Start rails server: rails server OR bin/dev
+5. Open a web browser adn navigate to: http://localhost:3000.
+6. Use rails db:reset to remove database and start over if needed
+
+SEED USERS
+- Admin user credentials: email: admin1@gmail.com, pwd: admin1
+- Distributor users credentials: email: kuwait@gmail.com, pwd: kuwait
                                   email: canada@gmail.com, pwd: canada
                                   email: germany@gmail.com, pwd: germany
                                   email: austrailia@gmail.com, pwd: austrailia (NO CONFIGURED SKUs)
-7. Start rails server: rails server OR bin/dev
-8. Open a web browser adn navigate to: http://localhost:3000
-9. sign
+
 
 APPLICATION OVERVIEW
 The Union Swiss Ordering System is a Ruby on Rails web application developed to streamline the order management process between distributors and administrators.
